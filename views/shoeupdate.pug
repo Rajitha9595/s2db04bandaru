@@ -2,6 +2,10 @@ extends layout
 block content
   h1= title
 
+  if(toShow==null)
+    h2 No instance to Update
+
+
   - let shoeid = toShow._id
   - let shoe_brand = toShow.shoe_brand
   - let shoe_cost = toShow.shoe_cost
@@ -20,7 +24,7 @@ block content
     div.form-group
       label.shoeAttr(for='shoe_cost') Shoe cost
       input#shoe_cost(type='number' name='shoe_cost', value= shoe_cost )
-    input(type="submit")
+    input(type="submit" class='btn btn-primary')
 
   script.
     document.forms['ShoeForm'].addEventListener('submit', (event) => {

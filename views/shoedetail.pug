@@ -1,6 +1,10 @@
 extends layout
 block content
   h1= title
+
+  if(toShow==null)
+    h2 No instance to Detail
+
   - let shoeid = toShow._id
   - let shoebrand = toShow.shoe_brand
   - let shoecost = toShow.shoe_cost
