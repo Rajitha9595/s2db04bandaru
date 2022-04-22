@@ -17,13 +17,13 @@ block content
   form(id='ShoeForm', action= actionid, method="PUT")
     div.form-group
       label.shoeAttr(for='shoe_brand') Shoe brand
-      input#shoe_brand(type='text' name='shoe_brand', value= shoe_brand )
+      input#shoe_brand(type='text' class='form-control', name='shoe_brand', value= shoe_brand )
     div.form-group
       label.shoeAttr(for='shoe_color') Shoe color
-      input#shoe_color(type='text' name='shoe_color', value= shoe_color )
+      input#shoe_color(type='text' class='form-control', name='shoe_color', value= shoe_color )
     div.form-group
       label.shoeAttr(for='shoe_cost') Shoe cost
-      input#shoe_cost(type='number' name='shoe_cost', value= shoe_cost )
+      input#shoe_cost(type='number' class='form-control', name='shoe_cost', value= shoe_cost )
     input(type="submit" class='btn btn-primary')
 
   script.

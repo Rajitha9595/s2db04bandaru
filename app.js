@@ -3,8 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('passport'); 
+var LocalStrategy = require('passport-local').Strategy;
 
-const connectionString = "mongodb+srv://rajitha:rajitha@cluster0.jr0lo.mongodb.net/rajitha?retryWrites=true&w=majority";
+passport.use(new LocalStrategy( 
+  function(username, password, done) { 
+    Account.findOne({ username: username }, function (err, user) { 
+      if (err) { return done(err); } 
+      if (!user) { 
+        return done(null, false, { message: 'Incorrect username.' }); 
+      } 
+      if (!user.validPassword(password)) { 
+        return done(null, false, { message: 'Incorrect password.' }); 
+      } 
+      return done(null, user); 
+    }); 
+  }));
+
+const connectionString = "mongodb+srv://Rajitha9595:Skr329532@cluster0.jbxdq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose = require('mongoose');
 mongoose.connect(connectionString,
   { useNewUrlParser: true, useUnifiedTopology: true });
@@ -27,6 +43,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({ 
+  secret: 'keyboard cat', 
+  resave: false, 
+  saveUninitialized: false 
+})); 
+app.use(passport.initialize()); 
+app.use(passport.session()); 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

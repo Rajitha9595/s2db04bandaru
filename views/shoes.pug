@@ -3,13 +3,30 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}. My name is Rajitha Bandaru
-  - let items = results
-  div(class="container-fluid")
-    div(class="row")
-      each shoes, index in items
-        div(class="col-sm-2" onclick=`buy(${index+1})`) #{shoes.shoe_brand} - #{shoes.shoe_color} - $#{shoes.shoe_cost}
-  
-  script.
-    function buy(index){
-      alert(`You purchased item ${index}`);
-    }
+  - let items = results; 
+   
+  table(class="table table-stripped table-bordered")
+        thead(style="background-color:lightgreen;color:white") 
+            tr
+                td Shoe ID
+                td Shoe Brand 
+                td Shoe Color 
+                td Shoe Cost 
+                td Update
+           
+        tbody
+            
+            each item in items
+                -let itemid=item._id
+                tr
+                    td #{item._id}
+                    td #{item.shoe_brand}
+                    td #{item.shoe_color}
+                    td #{item.shoe_cost}
+                    td 
+                      button.btn( class="btn btn-sm btn-info ml-1", onclick= `dispatch(\"/shoes/update/?id=${item._id}\")` ) Update 
+                script. 
+                  function dispatch(path){ 
+                    window.location.href=path 
+                  } 
+                  

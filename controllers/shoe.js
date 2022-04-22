@@ -72,6 +72,17 @@ exports.shoe_update_put = async function (req, res) {
     }
 };
 
+// List of all Shoes
+exports.shoe_list = async function (req, res) {
+    try {
+        thePlayer = await Shoe.find();
+        res.send(thePlayer);
+    } catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
+    }
+};
+
 // VIEWS
 // Handle a show all view
 exports.shoe_view_all_Page = async function (req, res) {
