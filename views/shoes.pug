@@ -4,7 +4,8 @@ block content
   h1= title
   p Welcome to #{title}. My name is Rajitha Bandaru
   - let items = results; 
-   
+
+  button.btn( class="btn btn-sm btn-info ml-1", onclick= `dispatch(\"/shoes/create\")` ) Create 
   table(class="table table-stripped table-bordered")
         thead(style="background-color:lightgreen;color:white") 
             tr
@@ -13,6 +14,8 @@ block content
                 td Shoe Color 
                 td Shoe Cost 
                 td Update
+                td Details 
+                td Delete
            
         tbody
             
@@ -25,6 +28,10 @@ block content
                     td #{item.shoe_cost}
                     td 
                       button.btn( class="btn btn-sm btn-info ml-1", onclick= `dispatch(\"/shoes/update/?id=${item._id}\")` ) Update 
+                    td 
+                      button.btn( class="btn btn-sm btn-info ml-1", onclick= `dispatch(\"/shoes/detail/?id=${item._id}\")` ) Detail 
+                    td 
+                      button.btn( class="btn btn-sm btn-info ml-1", onclick= `dispatch(\"/shoes/delete/?id=${item._id}\")` ) Delete 
                 script. 
                   function dispatch(path){ 
                     window.location.href=path 

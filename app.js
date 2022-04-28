@@ -25,7 +25,6 @@ mongoose = require('mongoose');
 mongoose.connect(connectionString,
   { useNewUrlParser: true, useUnifiedTopology: true });
 
-var Costume = require("./models/costume");
 var Shoe = require("./models/shoe");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -59,6 +58,11 @@ app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter)
 app.use('/resource', resourceRouter);
 
+var Account =require('./models/account'); 
+passport.use(new LocalStrategy(Account.authenticate())); 
+passport.serializeUser(Account.serializeUser()); 
+passport.deserializeUser(Account.deserializeUser()); 
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -79,34 +83,8 @@ module.exports = app;
 
 // We can seed the collection if needed on server start
 async function recreateDB() {
-  // Delete everything
-  await Costume.deleteMany();
-
-  let instance1 = new Costume({ costume_type: "Sri Anjaneya", size: 'medium', cost: 30 });
-  instance1.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("First object saved in Costume")
-  });
-
-  let instance2 = new Costume({ costume_type: "Lord Sri Krishna", size: 'large', cost: 25 });
-  instance2.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Second object saved in Costume")
-  });
-
-  let instance3 = new Costume({ costume_type: "Iron Man", size: 'medium', cost: 15.4 });
-  instance3.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Third object saved in Costume")
-  });
-
-  let instance4 = new Costume({ costume_type: "wonderwomen", size: 'extraLarge', cost: 32.9 });
-  instance4.save(function (err, doc) {
-    if (err) return console.error(err);
-    console.log("Fourth object saved in Costume")
-  });
-
-// Delete everything in Shoe
+  
+  // Delete everything in Shoe
   await Shoe.deleteMany();
 
   let instance5 = new Shoe({ shoe_brand: "Nike", shoe_color: 'white', shoe_cost: 100 });

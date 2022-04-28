@@ -75,8 +75,8 @@ exports.shoe_update_put = async function (req, res) {
 // List of all Shoes
 exports.shoe_list = async function (req, res) {
     try {
-        thePlayer = await Shoe.find();
-        res.send(thePlayer);
+        theShoe = await Shoe.find();
+        res.send(theShoe);
     } catch (err) {
         res.status(500);
         res.send(`{"error": ${err}}`);
